@@ -20,6 +20,16 @@ const App = () => {
     setScore(oldScore => oldScore + randomNumber)
     setRolledNumbers(prev => [...prev, randomNumber]) 
   }
+  function undoRoll() {
+    if (!rolledNumbers.length) return 
+
+    const newRolled = rolledNumbers.slice(0, -1)
+    setRolledNumbers(newRolled)
+    setCurrentImage(
+      newRolled.length ? images[newRolled[newRolled.length - 1] - 1] : question
+    )
+  }
+
 
   const numbers = []
   for (let i = 1; i <= 100; i++) {
@@ -39,8 +49,11 @@ const App = () => {
       <img src={currentImage} alt="Dice" />
 
       <button className='diceBtn' onClick={rollDice}>Click Here</button>
+      <button className='diceBtn' onClick={undoRoll}>Undo</button>
     </>
   )
 }
 
 export default App
+
+
